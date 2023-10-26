@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable constructor-super */
+/* eslint-disable no-restricted-globals */
 /*
  * square.js
  * Language: javascript
@@ -50,6 +51,8 @@
  * @property {number} side
  */
 
+const { Rectangle } = require('./rectangle');
+
 class Square extends Rectangle {
   /**
    * @constructor
@@ -64,7 +67,11 @@ class Square extends Rectangle {
    * @param {number} side - the length of a side of the square
    */
   constructor(side) {
-    // write your code here
+    // sets 0 as side length if side is NaN
+    const nSide = !isNaN(side) ? side : 0;
+    super(nSide, nSide);
+    this.name = 'Square';
+    this.side = nSide;
   }
 
   /**
@@ -72,7 +79,7 @@ class Square extends Rectangle {
    * @returns {number} the side length
    */
   getSide() {
-    // write your code here
+    return this.side;
   }
 }
 

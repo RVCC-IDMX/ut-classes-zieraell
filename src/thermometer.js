@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable getter-return */
 /* eslint-disable class-methods-use-this */
+/* eslint-disable no-underscore-dangle */
 /*
  * thermometer.js
  * Language: javascript
@@ -33,7 +34,9 @@ class Thermometer {
    * @param {number} celsius
    */
   constructor(celsius) {
-    // write your code here
+    this.celsius = celsius;
+    this.kelvin = this.celsius + 273.15;
+    this.fahrenheit = Math.round((this.celsius * 1.8 + 32) * 10000) / 10000;
   }
 
   /*  -------- celsius -------------------*/
@@ -44,7 +47,7 @@ class Thermometer {
    * @description - returns the celsius temperature
    * */
   get celsius() {
-    // write your code here
+    return this._celsius;
   }
 
   /**
@@ -54,7 +57,9 @@ class Thermometer {
    * @description - sets the celsius temperature
    */
   set celsius(tempCelsius) {
-    // write your code here
+    this._celsius = tempCelsius;
+    this._kelvin = this._celsius + 273.15;
+    this._fahrenheit = Math.round((this._celsius * 1.8 + 32) * 10000) / 10000;
   }
 
   /*  -------- kelvin -------------------*/
@@ -65,7 +70,7 @@ class Thermometer {
    * @description - returns the kelvin temperature
    */
   get kelvin() {
-    // write your code here
+    return this._kelvin;
   }
 
   /**
@@ -75,7 +80,9 @@ class Thermometer {
    * @description - sets the kelvin temperature
    */
   set kelvin(tempKelvin) {
-    // write your code here
+    this._kelvin = tempKelvin;
+    this._celsius = this._kelvin - 273.15;
+    this._fahrenheit = Math.round((this._celsius * 1.8 + 32) * 10000) / 10000;
   }
 
   /*  -------- fahrenheit -------------------*/
@@ -86,7 +93,7 @@ class Thermometer {
    * @description - returns the fahrenheit temperature
    */
   get fahrenheit() {
-    // write your code here
+    return this._fahrenheit;
   }
 
   /**
@@ -96,7 +103,9 @@ class Thermometer {
    * @description - sets the fahrenheit temperature
    */
   set fahrenheit(tempFahrenheit) {
-    // write your code here
+    this._fahrenheit = tempFahrenheit;
+    this._celsius = Math.round((((this._fahrenheit - 32) * 5) / 9) * 10000) / 10000;
+    this._kelvin = this._celsius + 273.15;
   }
 
   /**
@@ -114,7 +123,22 @@ class Thermometer {
    *
    */
   toString(unit) {
-    // write your code here
+    let str;
+    switch (unit) {
+      case 'C':
+        str = `${this.celsius}°C`;
+        break;
+      case 'K':
+        str = `${this.kelvin}K`;
+        break;
+      case 'F':
+        str = `${this.fahrenheit}°F`;
+        break;
+      default:
+        str = `${this.celsius}°C`;
+        break;
+    }
+    return str;
   }
 }
 
